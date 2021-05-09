@@ -1,0 +1,97 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {% if edit %}
+        Modifier
+    {% else %}
+        Ajouter
+    {% endif %}
+    
+{% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+    
+        {{ form_start(form) }}
+    <div class="container">
+            <fieldset>
+            <legend class="text-center m-3">
+            {% if edit %}
+                Modifier un post
+            {% else %}
+                Créer un post
+            {% endif %}
+            </legend>
+                <div class="form-group row justify-content-center">
+                    <label for="catPost">Categories</label>
+                    {{form_widget(form.category,{'attr':{'class':'form-control'}})}}
+                    {{form_errors(form.category)}}
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label for="titlePost">Titre du post</label>
+                    {{form_widget(form.title,{'attr':{'class':'form-control','placeholder':'Titre du post'}})}}
+                    {{form_errors(form.title,{'attr':{'class':'invalid-feedback'}})}}
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label for="articlePost">Contenu du post</label>
+                    {{form_widget(form.article,{'attr':{'class':'form-control','placeholder':'Contenu du post'}})}}
+                    {{form_errors(form.article,{'attr':{'class':'text-danger'}})}}
+                </div>
+                    {{form_widget(form)}}
+                <div class="row justify-content-center mt-4 mb-4">
+                    <button type="submit" class="btn btn-info">
+                    {% if edit %}
+                        Modifier
+                    {% else %}
+                        Ajouter
+                    {% endif %}
+                    
+                    </button>
+                </div>
+            </fieldset>
+    </div>
+        {{ form_end(form) }}
+
+{% endblock %}
+
+{% block _post_images_widget %}
+
+        {{form_label(form,' ')}}
+        {{form_widget(form)}}
+    <input type="hidden" id="widget-counters" value="0">
+    <div class="form-group mt-4">
+    <button type="button" class="btn btn-primary" id="add-image">Ajouter une image</button>
+    </div>
+    
+{% endblock %}
+
+{% block _post_images_entry_row %}
+    {{form_label(form.url,' ')}}
+    {{form_widget(form)}}
+    {{form_errors(form)}}
+{% endblock %}
+
+{% block _post_images_entry_widget %}
+    <div class="form-group" id="block_{{id}}">
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-5">
+                        {{form_widget(form.url,{'attr':{'class':'form-control-file'}})}}
+                    </div>
+                    <div class="col-3">
+                        {{form_errors(form.url)}}
+                    </div>
+                    <div class="col-2">
+                        <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">X</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="../js/addImage.js"></script>
+{% endblock %}

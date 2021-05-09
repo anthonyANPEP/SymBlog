@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+    <div class="m-3">
+    <div class="d-flex justify-content-center">
+        {% for image in post.images %}
+          <img  src="/uploads/images/{{ image.url }}" alt="">
+        {% endfor %}
+    </div>
+        <h1 class="text-center">{{ post.title }}</h1>
+        <div class="d-flex justify-content-center ">
+            <span class="badge badge-secondary p-2 h5 mt-2">{{ post.category.slug }}</span>
+        </div>
+        <p class="text-center m-5 p-3">{{ post.article }}</p>
+    </div>
+    
+{% endblock %}

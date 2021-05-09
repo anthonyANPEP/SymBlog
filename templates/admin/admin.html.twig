@@ -1,0 +1,58 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Gestion administrateur {% endblock %}
+
+{% block body %}
+    <h1 class="text-center mt-2 mb-2">Page de gestion administrateur</h1>
+
+    <table class="table table-hover ">
+  <thead>
+    <tr>
+      <th scope="col">Noms des catégorie</th>
+      <th scope="col">Boutons</th>
+    </tr>
+  </thead>
+  <tbody>
+
+{% for cat in cats %}
+  <tr class="table-primary">
+      <td scope="row">{{ cat.name }}</td>
+      <td>
+      <a href="{{ path('category_edit',{id:cat.id}) }}">
+      <button type='button'class='btn btn-primary p-1' >Edit</button>
+      </a>
+      </td>
+      <td>
+      <a href="{{ path('cat_delete',{id:cat.id}) }}">
+      <button type='button'class='btn btn-danger p-1' >Supprimer</button>
+      </a>
+      </td>
+    </tr>
+{% endfor %}
+
+    </tbody>
+</table>
+
+    <table class="table table-hover mt-5">
+  <thead>
+    <tr>
+      <th scope="col">Noms utilisateurs</th>
+      <th scope="col">Boutons</th>
+    </tr>
+  </thead>
+  <tbody>
+
+{% for user in users %}
+  <tr class="table-primary">
+      <td scope="row">{{ user.username }}</td>
+      <td>
+      <a href="{{ path('user_delete',{id:user.id}) }}">
+      <button type='button'class='btn btn-danger p-1' >Supprimer</button>
+      </a>
+      </td>
+    </tr>
+{% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}

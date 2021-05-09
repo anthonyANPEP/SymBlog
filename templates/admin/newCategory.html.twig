@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {% if edit %}
+        Modifier
+    {% else %}
+        Ajouter
+    {% endif %}
+    
+{% endblock %}
+
+{% block body %}
+    
+    <div class="container">
+        {{ form_start(form) }}
+            <fieldset>
+            <legend class="text-center m-3">
+            {% if edit %}
+                Modifier une catégorie
+            {% else %}
+                Créer une catégorie
+            {% endif %}
+            </legend>
+                <div class="form-group row justify-content-center">
+                    <label for="nameCat">Nom de la catégorie</label>
+                    {{form_widget(form.name,{'attr':{'class':'form-control','placeholder':'Nom de la categorie'}})}}
+                    {{form_errors(form.name)}}
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label for="slugCat">Slug de la catégorie</label>
+                    {{form_widget(form.slug,{'attr':{'class':'form-control','placeholder':'Slug de la catégorie'}})}}
+                    {{form_errors(form.slug,{'attr':{'class':'invalid-feedback'}})}}
+                </div>
+                <div class="row justify-content-center mt-4 mb-4">
+                    <button type="submit" class="btn btn-info">
+                    {% if edit %}
+                        Modifier
+                    {% else %}
+                        Ajouter
+                    {% endif %}
+                    
+                    </button>
+                </div>
+            </fieldset>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

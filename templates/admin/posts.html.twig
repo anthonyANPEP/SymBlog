@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Gestions posts {% endblock %}
+
+{% block body %}
+    <h1 class="text-center mt-2 mb-2">Page de gestion des posts</h1>
+
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Titres</th>
+      <th scope="col">Categories</th>
+      <th scope="col">Boutons</th>
+    </tr>
+  </thead>
+  <tbody>
+
+{% for post in posts %}
+  <tr class="table-primary">
+      <td scope="row">{{ post.title }}</td>
+      <td scope="row">{{ post.category.name }}</td>
+      <td>
+      <a href="{{ path('article_delete',{id:post.id}) }}">
+      <button type='button'class='btn btn-danger p-1' >Supprimer</button>
+      </a>
+      </td>
+    </tr>
+{% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}

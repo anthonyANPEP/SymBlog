@@ -2,18 +2,77 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+        <title>SymBlog - {% block title %}{% endblock %}</title>
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="{{path('home')}}">SymBlog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{path('home')}}">Accueil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('blog')}}">Blog</a>
+                </li>
+                </ul>
+                {% if is_granted("ROLE_ADMIN") %}
+
+                <div class="navbar-nav">
+                <ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
+                        <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path('admin') }}">Gestion administrateur</a>
+                        <a class="dropdown-item" href="{{ path('admin_posts') }}">Posts</a>
+                        <a class="dropdown-item" href="{{ path('category_new') }}">Créer une categorie</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+                </div>
+                
+                {% elseif is_granted("ROLE_USER") %}
+                <div class="navbar-nav">
+                <ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
+                        <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path('articles_user') }}">Mon compte</a>
+                        <a class="dropdown-item" href="{{ path('article_new') }}">Nouveau post</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+                </div>
+                {% else %}
+                <div class="navbar-nav">
+                    <ul>
+                        <li>
+                        <a href="{{ path('user_registration') }}" class="mr-2">S'incrire</a>
+                        <a href="{{ path('app_login') }}"><button class="btn btn-success">Se connecter</button></a>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+                </li>
+                </ul>
+                </div>
+            </div>
+        </nav>
         {% block body %}{% endblock %}
+        <footer class="bg-dark">
+            <p class="h3 p-3 text-center">Tous droits réservés <a href="{{path('home')}}">symblog.com</a></p>
+        </footer>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+            {{ encore_entry_script_tags('app') }}
+        {% block javascripts %}
+        {% endblock %}
     </body>
 </html>

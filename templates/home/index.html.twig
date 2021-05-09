@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="jumbotron m-4">
+
+  {% if user %}
+  
+  <h1 class="display-3">Bonjour {{ user.username }} !</h1>
+  {% else %}
+  <h1 class="display-3">Bonjour !</h1>
+  {% endif %}
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+</div>
+{% endblock %}

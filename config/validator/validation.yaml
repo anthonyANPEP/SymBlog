@@ -1,0 +1,3 @@
+App\Entity\Author:
+    constraints:
+        - NotBlank: no-validate

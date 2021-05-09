@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Mes articles {% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Bonjour {{ user.username }}, voici tes posts en lignes.</h1>
+
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Titres</th>
+      <th scope="col">Catégories</th>
+      <th scope="col">Boutons</th>
+    </tr>
+  </thead>
+  <tbody>
+
+{% for post in posts %}
+  <tr class="table-primary">
+      <td scope="row">{{ post.title }}</td>
+      <td>{{ post.category.name }}</td>
+      <td>
+      <a href="{{ path('article_edit',{id:post.id}) }}">
+      <button type='button'class='btn btn-primary ml-2 p-1' >Edit</button>
+      </a>
+      </td>
+      <td>
+      <a href="{{ path('article_delete',{id:post.id}) }}">
+      <button type='button'class='btn btn-danger p-1' >Supprimer</button>
+      </a>
+      </td>
+    </tr>
+{% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}
